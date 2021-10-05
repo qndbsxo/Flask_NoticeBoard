@@ -11,7 +11,10 @@
     <tbody>
       {% if question_list %} {% for question in question_list.items %}
       <tr>
-        <td>{{ loop.index }}</td>
+        <td>
+          {{ question_list.total - (( question_list.page-1) *
+          question_list.per_page) - loop.index0 }}
+        </td>
         <td>
           <a href="{{ url_for('question.detail', question_id=question.id) }}">
             {{ question.subject }}
@@ -37,24 +40,20 @@
     <li class="page-item disabled">
       <a href="#" class="page-link" tabindex="-1" aria-disabled="true">이전</a>
     </li>
-    {% endif %}
-    {% for page_num in question_list.iter_pages() %}
-      {% if page_num %}
-        {% if page_num != question_list.page %}
-        <li class="page-item">
-          <a href="?page={{ page_num }}" class="page-link">{{ page_num }}</a>
-        </li>
-        {% else %}
-        <li class="page-item-active" aria-current="page">
-          <a href="#" class="page-link">{{ page_num }}</a>
-        </li>
-        {% endif %}
-      {% else %}
-        <li class="disabled">
-          <a href="#" class="page-link">...</a>
-        </li>
-      {% endif %}
-    {% endfor %}
+    {% endif %} {% for page_num in question_list.iter_pages() %} {% if page_num
+    %} {% if page_num != question_list.page %}
+    <li class="page-item">
+      <a href="?page={{ page_num }}" class="page-link">{{ page_num }}</a>
+    </li>
+    {% else %}
+    <li class="page-item-active" aria-current="page">
+      <a href="#" class="page-link">{{ page_num }}</a>
+    </li>
+    {% endif %} {% else %}
+    <li class="disabled">
+      <a href="#" class="page-link">...</a>
+    </li>
+    {% endif %} {% endfor %}
     <!-- 다음페이지 -->
     {% if question_list.has_next %}
     <li class="page-item">
