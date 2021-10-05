@@ -1,4 +1,5 @@
 from locale import format_string
+from re import A
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -18,10 +19,11 @@ def create_app():
 	from . import models
 
 	# 블루프린트
-	from .views import main_views, question_views, answer_views
+	from .views import main_views, question_views, answer_views, auth_views
 	app.register_blueprint(blueprint=main_views.bp)
 	app.register_blueprint(blueprint=question_views.bp)
 	app.register_blueprint(blueprint=answer_views.bp)
+	app.register_blueprint(blueprint=auth_views.bp)
 
 	# 필터
 	from .filter import format_datetime
