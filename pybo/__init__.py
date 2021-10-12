@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from markdown import extensions
 from sqlalchemy import MetaData
+from flaskext.markdown import Markdown
 
 import config
 
@@ -27,6 +29,9 @@ def create_app():
     else:
         migrate.init_app(app, db)
     from . import models
+
+    # markdown
+    Markdown(app, extensions=['nl2br', 'fenced_code'])
 
     # 블루프린트
     from .views import main_views, question_views, answer_views, auth_views, comment_views, vote_views
