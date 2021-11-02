@@ -4,7 +4,7 @@
   <button
     class="navbar-toggler ml-auto"
     type="button"
-    data-toggle="collapse판
+    data-toggle="collapse"
     data-target="#navbarNav"
     aria-controls="navbarNav"
     aria-expanded="false"
@@ -12,22 +12,24 @@
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-	<div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
-		{% if g.user %}
-		<ul class="navbar-nav">
-			<li class="nav-item">
-				<a href="{{ url_for('auth.logout') }}" class="nav-link">{{ g.user.username }} (로그아웃)</a>
-			</li>
-		</ul>
-		{% else %}
-		<ul class="navbar-nav">
-			<li class="nav-item">
-				<a href="{{ url_for('auth.signup') }}" class="nav-link">계정생성</a>
-			</li>
-			<li class="nav-item">
-				<a href="{{ url_for('auth.login') }}" class="nav-link">로그인</a>
-			</li>
-		</ul>
-		{% endif %}
-	</div>
+  <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+    {% if g.user %}
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="{{ url_for('auth.logout') }}" class="nav-link"
+          >{{ g.user.username }} (로그아웃)</a
+        >
+      </li>
+    </ul>
+    {% else %}
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="{{ url_for('auth.signup') }}" class="nav-link">계정생성</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url_for('auth.login') }}" class="nav-link">로그인</a>
+      </li>
+    </ul>
+    {% endif %}
+  </div>
 </nav>

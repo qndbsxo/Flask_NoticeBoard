@@ -1,12 +1,7 @@
 from datetime import datetime
-
 from flask import Blueprint, url_for, request, render_template, g, flash
-from flask.typing import ErrorHandlerCallable
-from sqlalchemy import log
 from werkzeug.utils import redirect
-
 from pybo.views.auth_views import login_required
-
 from .. import db
 from ..forms import AnswerForm
 from ..models import Question, Answer
@@ -52,9 +47,12 @@ def modify(answer_id):
             form.populate_obj(answer)
             answer.modify_date = datetime.now()  # 수정일시 저장
             db.session.commit()
-            return redirect('{}#answer_{}'.format(
-                url_for('question.detail', question_id=answer.question.id), answer_id
-            ))
+            return redirect(
+                "{}#answer_{}".format(
+                    url_for("question.detail", question_id=answer.question.id),
+                    answer_id,
+                )
+            )
     else:
         form = AnswerForm(obj=answer)
     return render_template("answer/answer_form.html", form=form)
